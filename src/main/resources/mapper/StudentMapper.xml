@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zc.demo.dao.StudentDao">
+
+    <resultMap id="studentResultMap" type="com.example.zc.demo.entity.Student">
+        <id column="id" property="id" jdbcType="INTEGER" />
+         <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="addr" property="addr" jdbcType="VARCHAR"/>
+        <result column="createDate" property="createDate" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="base">
+        id,
+        name,
+        sex,
+        addr,
+        createDate
+    </sql>
+
+    <select id="getById" resultMap="studentResultMap">
+        select
+        <include refid="base" />
+        from student where id = #{id}
+    </select>
+
+
+    <insert id="add" parameterType="com.example.zc.demo.entity.Student">
+         insert into student
+         (name,sex,addr,createDate)
+         values
+         (#{name},#{sex},#{addr}, now())
+    </insert>
+
+
+    <update id="updateById" >
+        update student
+        <set>
+            <if test="student.name!=null">name=#{student.name},</if>
+            <if test="student.sex!=null">sex=#{student.sex},</if>
+            <if test="student.addr!=null">addr=#{student.addr}</if>
+        </set>
+        where id = #{id}
+
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+       delete from  student
+       where id = #{id}
+    </delete>
+
+    <select id="getStudentList" parameterType="com.example.zc.demo.entity.Student" resultMap="studentResultMap">
+      select
+      <include refid="base"/> from student
+        <where>
+            <if test="id!=null"> id = #{id}</if>
+            <if test="name!=null"> And name like "%"#{name}"%"</if>
+            <if test="sex!=null"> And sex = #{sex}</if>
+            <if test="addr!=null"> And addr like "%"#{addr}"%"</if>
+        </where>
+
+
+    </select>
+</mapper>
+
+
+

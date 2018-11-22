@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/hello?characterEncoding=UTF-8
+    username: root
+    password: superzhang
+    driver-class-name: com.mysql.jdbc.Driver
+
+  devtools:
+    restart:
+      enabled: true
+
+
+mybatis:
+  type-aliases-package: com.example.zc.demo.entity
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    com.example.zc.demo.dao: debug
+
+
