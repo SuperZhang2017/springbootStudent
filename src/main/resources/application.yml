@@ -8,8 +8,8 @@ spring:
 
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/hello?characterEncoding=UTF-8
-    username: root
-    password: superzhang
+    username: ****
+    password: ***
     driver-class-name: com.mysql.jdbc.Driver
 
   devtools:
