@@ -4,11 +4,14 @@ package com.example.zc.demo.controller;
 
 import com.example.zc.demo.entity.Student;
 import com.example.zc.demo.service.StudentService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 
 @RestController
@@ -17,22 +20,21 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    private static Log logger = LogFactory.getLog(StudentController.class);
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     public Student getStudentById(@PathVariable(value = "id") Integer id){
         Student student;
+
         try {
              student = studentService.getById(id);
-
+             logger.info("student="+student);
         }catch (Exception e){
             student = null;
             e.printStackTrace();
         }
 
-
-        System.out.println(student);
-
-
+        System.out.println("-------------热部署测试修改后-----------");
 
         return student;
 
@@ -83,7 +85,7 @@ public class StudentController {
             e.printStackTrace();
         }
 
-        System.out.println(d);
+        System.out.println(d+"，热部署修改后");
         return ResponseEntity.ok(d);
     }
 
@@ -99,7 +101,7 @@ public class StudentController {
             e.printStackTrace();
         }
 
-        System.out.println(list+"111111121");
+        System.out.println(list);
         return ResponseEntity.ok(list);
 
     }
